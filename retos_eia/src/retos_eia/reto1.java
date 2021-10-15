@@ -1,14 +1,11 @@
 package retos_eia;
-import java.util.ArrayList;
 public class reto1 {
 
 	public static void main(String[] args) {
-		String word = "AELMNEASNNCAAATORMSEPTOARNAAAÑSSECD";
-		System.out.println(mostrarFilas(word));
+		String palabra = "MOJLESIESTIEXAAICNAOSACMYPMTOUDRLOE";
 		int [] ordenFila = {3,4,2,1,0};
 		int [] ordenCol = {1,3,2,0,4,6,5};
-		//dobleTransposicion(ordenFila,ordenCol);
-		perms(0,ordenFila,ordenFila.length);
+		perms(0,ordenFila,ordenFila.length,palabra);
 	} 
 	public static void decodificarEscitalo(String palabra) {
 		for (int i = 2 ; i < 18 ; i++) { //Se repite por cada numero de Escitalo
@@ -28,20 +25,20 @@ public class reto1 {
 		}
 	}
 	//Encuentra las distintas permutaciones de un vector de numeros
-	public static void perms (int comienzo, int [] numeros, int longitud) {
+	public static void perms (int comienzo, int [] numeros, int longitud, String palabra) {
 		if (longitud == comienzo) {
 			int [] ordenCol = {0,1,2,3,4,5,6};
-			dobleTransposicion(numeros,ordenCol);
+			dobleTransposicion(numeros,ordenCol,palabra);
 			return;
 		}
 		for (int i = comienzo ; i < longitud ; i ++) {
-			change(numeros, comienzo, i);
-			perms(comienzo+1, numeros, longitud);
-			change (numeros, i, comienzo);
+			cambiar(numeros, comienzo, i);
+			perms(comienzo+1, numeros, longitud,palabra);
+			cambiar (numeros, i, comienzo);
 		}
 	}
 	//Cambiar dos elementos de un vector de lugar
-	public static void change (int[]numeros, int pos1, int pos2) {
+	public static void cambiar (int[]numeros, int pos1, int pos2) {
 		int temp = numeros[pos1];
 		numeros[pos1] = numeros[pos2];
 		numeros[pos2] = temp;
@@ -78,7 +75,7 @@ public class reto1 {
 				chars[fila][col] = str.charAt(5*fila+col);
 			}
 		}
-		return characters;
+		return chars;
 	}
 	//Decodifica una fila de la matriz con una clave
 	public static String decodificarFila(int []clave, String palabra) {
@@ -88,7 +85,7 @@ public class reto1 {
 			resultado += palabra.charAt(clave[i]) + "";
 		}
 		System.out.println(resultado);
-		return result;
+		return resultado;
 
 	}
 	//Decodifica una columna de la matriz con una clave
